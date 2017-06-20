@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<% if session[:rong_log_in]%>
+			<%=session[:rong_log_in]%>
+		<%end%>
+		<h1>Logearse</h1>
+		<form class="frm" action="/log_page" method="post">
+			<p>Ingresa email</p>
+			<input type="text" name="email" >
+			<p>Ingresa password</p>
+			<input type="text" name="password">
+			<input type="submit" >
+		</form>
+		<br>
+
+	</body>
+</html>
