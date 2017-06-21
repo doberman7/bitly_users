@@ -12,7 +12,7 @@ post '/urls' do
   if newURL.valid?
     newURL.save
     # session[:errors].clear if session[:errors]
-    p session[:message] = "saved"
+    p session[:message] = "Url salvado"
     else
     p "X"*50
     p session[:message] = newURL.errors.full_messages * " , "
@@ -27,4 +27,12 @@ get '/short_url/:url_id' do
   url = Url.find(params[:url_id])
   url.add_click
   redirect to "#{url.long_url}"
+end
+
+before '/secret/:user' do
+  @urls = Url.all.reverse
+end
+
+after "/log_page" do
+  session[:message] = "Bienvenido"
 end
