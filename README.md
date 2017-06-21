@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # bitly_users
 DIAGRAMA: https://drive.google.com/file/d/0B9z566E1IBDBa2IxeWhNVE1lY1E/view?usp=sharing
 
@@ -49,3 +50,5 @@ Por último crea una página de perfil para el usuario donde enlistes todas las 
 
 get '/users/:id' do
 end
+=======
+>>>>>>> 8607429901681a9862c840ca215c70ffcbb3f3d4
