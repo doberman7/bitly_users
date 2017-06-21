@@ -26,7 +26,9 @@ get '/' do
   session[:rong_log_in].clear if session[:rong_log_in].class == String
   erb :index
 end
-# Crear cuenta de usuario
+#Crear cuenta de usuario
+#---------------------------------
+# SING IN
 before '/sign' do
   session[:goodbye].clear
 end
@@ -35,7 +37,8 @@ get '/sign' do
   erb :sign_up
 end
 # Logearse como usuario existente
-
+#---------------------------------
+# LOG
 before '/log' do
   session[:goodbye].clear
 end
@@ -44,8 +47,8 @@ get '/log' do
   session[:goodbye].clear
   erb :log_in
 end
-
-#accion si se escoge el boton de "sign"
+#------------------
+#SING UP
 post '/signUP' do
   # Asignar a @user entradas del formulario en los PARAMS name, email y password
   user = User.new(name: params[:user_name],email: params[:user_email],password: params[:user_password])
@@ -71,7 +74,7 @@ post '/signUP' do
   end
 
 end#fin de post '/signUP'
-
+#LOG_page------------------------
 # peticion si el login es exitoso
 post '/log_page' do
   #Autenticar objeto con metodo ".authenticate" creado en MODELO con lo inputs del formulario
@@ -79,7 +82,7 @@ post '/log_page' do
   p session[:user_datails] =  User.authenticate(params[:email], params[:password])
   redirect to '/secret/:user'
 end#FIN de post '/log_page'
-
+#SECRET USER----------------------
 before '/secret/:user' do
   p "BEFORE SECRETE USER" + "<" * 100
   # Asignar boleano si en caso de que la session se clase user

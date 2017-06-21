@@ -1,5 +1,5 @@
-  <h1>Bienvenido a Sinatra!</h1>
-  <p>Este es esqueleto de sinatra que armamos para ti</p>
+  <h1>BITLY con USERS</h1>
+  <p>Este es el indice</p>
     <br>
       <!--mostrar sesion de despedidad en caso de no ser nil-->
       <%=session[:goodbye] if session[:goodbye] != nil%>
@@ -11,3 +11,6 @@
     <form class="" action="/log" method="get">
       <input type="submit" name="go_to_log_in" value="LOG IN">
     </form>
+    <!--mostrar vista con url-->
+    
+    <%=erb :bitly%>

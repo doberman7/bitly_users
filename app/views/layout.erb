@@ -20,11 +20,11 @@
   <div class="container">
     <!--sesions es habilitado en el controlador-->
 
-    <%if @user%>
+    <!-- <%if @user%>
       <%=session[:saved_message]%>
       <%=@user.name if @user!=nil%>
       <%session[:saved_message].clear%>
-    <%end%>
+    <%end%> -->
 
     <%= yield %>
   </div>
