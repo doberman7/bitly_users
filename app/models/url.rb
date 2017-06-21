@@ -19,7 +19,8 @@ class Url < ActiveRecord::Base
 
 	#Adds a validation method or block to the class. This is useful when overriding the validate instance method becomes too unwieldy and you're looking for more descriptive declaration of your validations.
 	#This can be done with a symbol pointing to a method:
-	validate :check_uri
+	# validate :check_uri
+	belongs_to :user
 
 	def create_short_url
 		#prefijo del shot url
@@ -43,33 +44,32 @@ class Url < ActiveRecord::Base
 		# ActiveRecord metod update: actualizar el atributo click_count
 		self.update(click_count: click_count)
 	end
-	#AQUI
-	def check_uri
-		p "<"*50
-		#Creates one of the URI’s subclasses instance from the string.
-		uri = URI::parse(self.long_url)
-		p "HOST: #{uri.host}"
-		p "PORT: #{uri.port}"
-		p "PATH: #{uri.path}"
-		p "SCHEME: #{uri.scheme}"
-		p "QUERY: #{uri.query}"
-		p "FRAGMENT: #{uri.fragment}"
-		# puts URI.split(self.long_url)
-		# p URI.scheme_list
-		if uri.scheme == "http" || uri.scheme == "https"
-			#Sends a GET request to the target and returns the HTTP response as a Net::HTTPResponse object. The target can either be specified as (uri), or as (host, path, port = 80); so:
-			p "0"*50
-			res = Net::HTTP.get(uri)
-			
-			p "OBJETO NET con get response: #{res}"
-			p "MESAGE: #{res.message}"
-			# p "CLASS NAME #{res.class.name}"
-			p "OBJETO NET code: #{res.code}"
-			p "OBJETO NET body: #{res.body}"
-			errors.add(:base, 'error 404 NOT FOUND') if res == "Not Found"
-			p "0"*50
-		end
-		p "<"*50
-
-	end
+	# def check_uri
+	# 	p "<"*50
+	# 	#Creates one of the URI’s subclasses instance from the string.
+	# 	uri = URI::parse(self.long_url)
+	# 	p "HOST: #{uri.host}"
+	# 	p "PORT: #{uri.port}"
+	# 	p "PATH: #{uri.path}"
+	# 	p "SCHEME: #{uri.scheme}"
+	# 	p "QUERY: #{uri.query}"
+	# 	p "FRAGMENT: #{uri.fragment}"
+	# 	# puts URI.split(self.long_url)
+	# 	# p URI.scheme_list
+	# 	if uri.scheme == "http" || uri.scheme == "https"
+	# 		#Sends a GET request to the target and returns the HTTP response as a Net::HTTPResponse object. The target can either be specified as (uri), or as (host, path, port = 80); so:
+	# 		p "0"*50
+	# 		res = Net::HTTP.get(uri)
+	#
+	# 		p "OBJETO NET con get response: #{res}"
+	# 		p "MESAGE: #{res.message}"
+	# 		# p "CLASS NAME #{res.class.name}"
+	# 		p "OBJETO NET code: #{res.code}"
+	# 		p "OBJETO NET body: #{res.body}"
+	# 		errors.add(:base, 'error 404 NOT FOUND') if res == "Not Found"
+	# 		p "0"*50
+	# 	end
+	# 	p "<"*50
+	#
+	# end
 end

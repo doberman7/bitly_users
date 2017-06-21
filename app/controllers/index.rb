@@ -48,7 +48,7 @@ end
 #accion si se escoge el boton de "sign"
 post '/signUP' do
   # Asignar a @user entradas del formulario en los PARAMS name, email y password
-  user = Usser.new(name: params[:user_name],email: params[:user_email],password: params[:user_password])
+  user = User.new(name: params[:user_name],email: params[:user_email],password: params[:user_password])
   case user.valid?
     when true
       @user = user
@@ -76,14 +76,14 @@ end#fin de post '/signUP'
 post '/log_page' do
   #Autenticar objeto con metodo ".authenticate" creado en MODELO con lo inputs del formulario
   p "AUTETICACION y creacion de SESSION" + "-"*100
-  p session[:user_datails] =  Usser.authenticate(params[:email], params[:password])
+  p session[:user_datails] =  User.authenticate(params[:email], params[:password])
   redirect to '/secret/:user'
 end#FIN de post '/log_page'
 
 before '/secret/:user' do
   p "BEFORE SECRETE USER" + "<" * 100
   # Asignar boleano si en caso de que la session se clase user
-  p user = session[:user_datails].class == Usser
+  p user = session[:user_datails].class == User
 
   case user
   # in the case that user is true
