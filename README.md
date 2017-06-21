@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # bitly_users
 DIAGRAMA: https://drive.google.com/file/d/0B9z566E1IBDBa2IxeWhNVE1lY1E/view?usp=sharing
 
