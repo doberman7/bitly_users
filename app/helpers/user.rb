@@ -2,9 +2,9 @@ helpers do
 	# Regresa true si el current_user existe y false de otra manera
   def logged_in?
 		# p " #"*50
-		# p session[:user_datails].id
-		if session[:user_datails]
-			if session[:user_datails].id != nil
+		# p session[:user_id].id
+		if session[:user_id]
+			if session[:user_id] != nil
 				true
 			else
 				false
@@ -16,8 +16,9 @@ helpers do
   def current_user
 		#p " #"*50
 		if logged_in? == true
-			if session[:newURL] != nil
-				session[:newURL].update!(user_id: session[:user_datails].id)
+			if session[:newURL_id] == 0
+        #p "="*50
+				 Url.where(id: session[:newURL_id]).update!(user_id: session[:user_id])
 			end
 		end
   end

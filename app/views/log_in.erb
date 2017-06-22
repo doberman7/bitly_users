@@ -8,6 +8,9 @@
 		<% if session[:rong_log_in]%>
 			<%=session[:rong_log_in]%>
 		<%end%>
+		<% if session[:saved_message]%>
+			<%=session[:saved_message]%>
+		<%end%>
 		<h1>Logearse</h1>
 		<form class="frm" action="/log_page" method="post">
 			<p>Ingresa email</p>

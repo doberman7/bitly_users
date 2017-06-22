@@ -10,15 +10,17 @@
     <%end%>
     <br>
     <h2>URLs</h2>
-		<p>Aquellos urls creados por ti podràs ver cuantas veces han sido clickeados</p>
+
     <% if @urls %>
       <%@urls.each do |url|%>
 				<!--el link dirige a la url corta-->
         <a href="/short_url/<%= url.id %>">https://bitly/<%=url.short_url%></a>
-				<% if session[:user_datails].id == url.user_id %>
-					<p>Ha sido clickeado
-						<%=url.click_count%> veces
-					</p>
+				<% if @name != nil %>
+					<% if @id == url.user_id %>
+						<p>Ha sido clickeado
+							<%=url.click_count%> veces
+						</p>
+					<%end%>
 				<%end%>
 				<br>
       <%end%>

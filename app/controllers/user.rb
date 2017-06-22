@@ -9,44 +9,38 @@ enable :sessions
 #   @fuck = "something's FUCK'T UP...some where"
 #   # erb :sign_up
 # end
-#-----------------------------------------------------
-before '/' do
-
-  if session[:user_datails] != ""
-    p "BEFORE /" + "=" * 100
-    p session[:user_datails]= "SESION TERMINADA"
-    session[:user_datails].clear
-    session[:goodbye] = "vuelve pronto"
-  else
-    p session[:goodbye].clear
+#---------------------------------------
+before '/secret/:user' do
+  #p "BEFORE SECRETE USER" + "<" * 100
+  # Evaluar si el user esta logeadoi
+	#p "logged_in" + "-" *50
+  case logged_in?
+  # in the case that user is true
+  when true
+    #p "@user_details NO ES NIL" + "<"*100
+    # asign var name to see in the view
+     user = User.find(session[:user_id])
+     #p "x"*50
+     @id = user.id
+     #p "x"*50
+     @name = user.name
+     # asign var id to see in the view
+     #p @id = user.id
+		 # asign var mail to see in the view
+     @mail = user.email
+     #p "x"*50
+    #  despejar la sessiin que mensajea un login errorneo
+     session[:rong_log_in].clear if session[:rong_log_in] != nil
+  # if user false
+  when false
+    #SESIONSS display the message of rong login
+    p session[:rong_log_in] = "Email o password incorrectos, favor de logearse con credenciales validas "
+    #renderear log_in nuevamente
+    redirect to'/log'
   end
-end
-#peticion GET a pagina de inicio
-get '/' do
-  session[:rong_log_in].clear if session[:rong_log_in].class == String
-  erb :index
-end
-#Crear cuenta de usuario
-#---------------------------------
-# SING IN
-before '/sign' do
-  session[:goodbye].clear
-end
-get '/sign' do
-  session[:goodbye].clear
-  erb :sign_up
-end
-# Logearse como usuario existente
-#---------------------------------
-# LOG
-before '/log' do
-  session[:goodbye].clear
+
 end
 
-get '/log' do
-  session[:goodbye].clear
-  erb :log_in
-end
 #------------------
 #SING UP
 post '/signUP' do
@@ -58,15 +52,17 @@ post '/signUP' do
       @user.save!
       #se ve en consola y en layout:
       p "*" * 100
-      p session[:saved_message] = "Successfully stored the name: "#en layout se establecio que se visualize el @user.name si este no es nil
-      #renderear pagina de lof in
+      p session[:saved_message] = "Successfully stored"#en layout se establecio que se visualize el @user.name si este no es nil
+      #renderear pagina de log in
+      # session[:rong_log_in].clear if session[:rong_log_in].clear != nil
+
       p "*"*100
       erb :log_in
     when false
        @error = user.errors.full_messages.each do |e|
          p e
       end
-      erb :sign_up
+      redirect to '/signUP'
     # Para el sinatra error Stack
     # else
     #   error
@@ -84,9 +80,13 @@ end
 # peticion si el login es exitoso
 post '/log_page' do
   #Autenticar objeto con metodo ".authenticate" creado en MODELO con lo inputs del formulario
-  #p "AUTETICACION y creacion de SESSION" + "-"*100
-  session[:user_datails] =  User.authenticate(params[:email], params[:password])
+  p "AUTETICACION y creacion de SESSION" + "-"*50
+  #p "-"*50
+  @user_datails = User.authenticate(params[:email], params[:password])
   #metodo en helpers/user.rb
-  logged_in?
+  #p "+"*50
+   @user_datails.id
+    session[:user_id] = @user_datails.id
+   logged_in?
   redirect to '/secret/:user'
 end#FIN de post '/log_page'

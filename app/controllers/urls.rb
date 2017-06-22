@@ -21,16 +21,17 @@ end
 
 post '/urls' do
   # crea una nueva Url--------------------------
-  session[:newURL] = Url.new(long_url: params[:new_url] , click_count: 0)
-  if session[:newURL].valid?
-    #metodo de helpers/user.rb, poner el id del usuario con la sesión actual (current_user) en la columna de user_id.s 
+  newURL = Url.new(long_url: params[:new_url] , click_count: 0)
+  if newURL.valid?
+    #metodo de helpers/user.rb, poner el id del usuario con la sesión actual (current_user) en la columna de user_id.s
+    session[:newURL_id] = newURL.user_id
     current_user
-    session[:newURL].save
+    newURL.save
     # session[:errors].clear if session[:errors]
     p session[:message] = "Url salvado"
   else
     #p "X"*50
-    p session[:message] = session[:newURL].errors.full_messages * " , "
+    p session[:message] = newURL.errors.full_messages * " , "
   end
   redirect to '/secret/:user'
 end
