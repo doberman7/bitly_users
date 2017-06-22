@@ -21,6 +21,9 @@ before '/secret/:user' do
      @name = session[:user_datails].name
      # asign var id to see in the view
      @id = session[:user_datails].id
+		 # asign var mail to see in the view
+     @mail = session[:user_datails].email
+
     #  despejar la sessiin que mensajea un login errorneo
      session[:rong_log_in].clear if session[:rong_log_in] != nil
   # if user false
