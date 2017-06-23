@@ -13,15 +13,28 @@
 
     <% if @urls %>
       <%@urls.each do |url|%>
-				<!--el link dirige a la url corta-->
-        <a href="/short_url/<%= url.id %>">https://bitly/<%=url.short_url%></a>
-				<% if @name != nil %>
-					<% if @id == url.user_id %>
-						<p>Ha sido clickeado
-							<%=url.click_count%> veces
-						</p>
-					<%end%>
-				<%end%>
+				<!--el link dirige a la url corta,
+					cooresponde al del controlador urls.rb
+					get /short_url/:url_id
+				-->
+				<table style="width:100%">
+					 
+					 <tr>
+					 	 <th><a href="/short_url/<%= url.id %>">https://bitly/<%=url.short_url%></a></th>
+						 <th><% if @id == url.user_id %>
+	 						<p>Ha sido clickeado
+	 							<%=url.click_count%> veces
+	 						</p>
+	 					<%end%></th>
+					 </tr>
+				</table>
+
+
+
+
+
+
+
 				<br>
       <%end%>
     <%end%>

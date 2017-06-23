@@ -26,13 +26,13 @@ after "/log_page" do
   session[:message] = "Bienvenido"
 end
 
-after '/secret/:user' do
+after '/secret/:user_id' do
   #p 'after /secret/:user' + "."*100
   # creaser session con la fecha actual
   session[:time] = Time.now
 end
 
-get '/secret/:user'do
+get '/secret/:user_id'do
   # purgar session login equivocado
   session[:rong_log_in].clear if session[:rong_log_in] != nil
   session[:rong_log_in].clear if session[:rong_log_in].class == String

@@ -10,7 +10,7 @@ enable :sessions
 #   # erb :sign_up
 # end
 #---------------------------------------
-before '/secret/:user' do
+before '/secret/:user_id' do
   #p "BEFORE SECRETE USER" + "<" * 100
   # Evaluar si el user esta logeadoi
 	#p "logged_in" + "-" *50
@@ -51,12 +51,12 @@ post '/signUP' do
       @user = user
       @user.save!
       #se ve en consola y en layout:
-      p "*" * 100
+      #p "*" * 100
       p session[:saved_message] = "Successfully stored"#en layout se establecio que se visualize el @user.name si este no es nil
       #renderear pagina de log in
       # session[:rong_log_in].clear if session[:rong_log_in].clear != nil
 
-      p "*"*100
+      #p "*"*100
       erb :log_in
     when false
        @error = user.errors.full_messages.each do |e|
@@ -72,7 +72,7 @@ post '/signUP' do
 end#fin de post '/signUP'
 
 #ruta para el pagina secreta
-get '/secret/:user' do
+get '/secret/:user_id' do
   # reder pagina secreta
   erb :secret_page#=>GET
 end
@@ -80,13 +80,13 @@ end
 # peticion si el login es exitoso
 post '/log_page' do
   #Autenticar objeto con metodo ".authenticate" creado en MODELO con lo inputs del formulario
-  p "AUTETICACION y creacion de SESSION" + "-"*50
+  p "AUTETICACION y creacion de SESSION" + "-" * 50
   #p "-"*50
-  @user_datails = User.authenticate(params[:email], params[:password])
+   user = User.authenticate(params[:email], params[:password])
+  #p user.id
   #metodo en helpers/user.rb
   #p "+"*50
-   @user_datails.id
-    session[:user_id] = @user_datails.id
-   logged_in?
-  redirect to '/secret/:user'
+  p session[:user_id] = user.id if session[:user_id] != nil
+  logged_in?
+  redirect to '/secret/:user_id'
 end#FIN de post '/log_page'

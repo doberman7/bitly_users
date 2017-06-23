@@ -41,9 +41,10 @@ class Url < ActiveRecord::Base
 	def add_click
 		#sumar 1 al atributo click_count
 		self.click_count = click_count + 1
-		# ActiveRecord metod update: actualizar el atributo click_count
+		# ActiveRecord metod update: actualizar el atributo click_count en la DB
 		self.update(click_count: click_count)
 	end
+	#metodo para validar la respuesta del servidor, por ahora los net objets generan Socket Errors
 	# def check_uri
 	# 	p "<"*50
 	# 	#Creates one of the URI’s subclasses instance from the string.

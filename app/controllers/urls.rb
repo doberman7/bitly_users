@@ -1,6 +1,6 @@
 enable :sessions
 
-before '/secret/:user' do
+before '/secret/:user_id' do
   @urls = Url.all.reverse
 end
 
@@ -10,28 +10,32 @@ get '/' do
   erb :index
 end
 
-# redirige a la URL originals
+# redirige a la URL originals AQUI
 get '/short_url/:url_id' do
-  p "*" * 50
+
   # asignar el Url que tenga el id en :url_id
-  url = Url.find(params[:url_id])
-  url.add_click
+  #p "*" * 50
+   url = Url.find(params[:url_id])
+   url.add_click
+  #p "*" * 50
   redirect to "#{url.long_url}"
 end
 
 post '/urls' do
-  # crea una nueva Url--------------------------
+  # crea una nueva Url
   newURL = Url.new(long_url: params[:new_url] , click_count: 0)
   if newURL.valid?
-    #metodo de helpers/user.rb, poner el id del usuario con la sesión actual (current_user) en la columna de user_id.s
-    session[:newURL_id] = newURL.user_id
-    current_user
+    #p " @"*50
     newURL.save
+    #metodo de helpers/user.rb, poner el id del usuario con la sesión actual (current_user) en la columna de user_id.s
+    session[:newURL_id] = Url.last.id
+    current_user
+    #p " @"*50
     # session[:errors].clear if session[:errors]
-    p session[:message] = "Url salvado"
+    session[:message] = "Url salvado"
   else
     #p "X"*50
     p session[:message] = newURL.errors.full_messages * " , "
   end
-  redirect to '/secret/:user'
+  redirect to '/secret/:user_id'
 end

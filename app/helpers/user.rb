@@ -14,12 +14,12 @@ helpers do
 	#En el caso en el que el usuario tiene una sesión activa, si crea una url entonces deberás poner el id del usuario con la sesión actual (current_user) en la columna de user_id.s
   # Esto deberá de regresar al usuario con una sesión actual si es que existe
   def current_user
-		#p " #"*50
 		if logged_in? == true
-			if session[:newURL_id] == 0
+
         #p "="*50
-				 Url.where(id: session[:newURL_id]).update!(user_id: session[:user_id])
-			end
+				p Url.where(id: session[:newURL_id]).update(user_id: session[:user_id])
+        #p "="*50
+
 		end
   end
 end
