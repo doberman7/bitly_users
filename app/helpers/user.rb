@@ -1,13 +1,14 @@
 helpers do
 	# Regresa true si el current_user existe y false de otra manera
   def logged_in?
-		# p " #"*50
+		 p " #"*50
 		# p session[:user_id].id
+    p session[:user_id]
 		if session[:user_id]
 			if session[:user_id] != nil
-				true
+			p	true
 			else
-				false
+			p	false
 			end
 		end
   end

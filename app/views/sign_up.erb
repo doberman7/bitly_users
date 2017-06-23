@@ -1,5 +1,5 @@
   <h1>SIGN UP</h1>
-<form class="frm" action="/signUP" method="post" name="formulario">
+<form class="frm" action="/sign" method="post" name="formulario">
   <!--nombre, email y crear su password.-->
   <p>Nombre</p>
   <input type="text" name="user_name" >
@@ -9,13 +9,14 @@
   <input type="text" name="user_password" >
   <input type="submit" >
   <!--Si existe la var error-->
-  <% if @error %>
+  <% if session[:error] %>
   <br>
     <!--el array de errores es iterado cada vez  -->
-    <%@error.each do |e| %>
-      <!-- cada uno es mostrado agregandole un espacio entre cada uno-->
-      <%=e%><br>
+    <%session[:error].each do |e|%>
+        <%=e%>
+        <br>
     <%end%>
+
   <% end %>
 
 

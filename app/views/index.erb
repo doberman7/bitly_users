@@ -2,15 +2,14 @@
   <p>Este es el indice</p>
     <br>
       <!--mostrar sesion de despedidad en caso de no ser nil-->
-      <%=session[:goodbye] if session[:goodbye] != nil%>
+      
     <br>
     <form class="" action="/sign" method="get" name="formulario">
-      <input type="submit" name="go_to_sign_in" value="SIGN IN">
+      <input type="submit"  value="SIGN IN">
     </form>
     <br>
     <form class="" action="/log" method="get">
-      <input type="submit" name="go_to_log_in" value="LOG IN">
+      <input type="submit"  value="LOG IN">
     </form>
     <!--mostrar vista con url-->
-    <br>
     <%=erb :bitly%>

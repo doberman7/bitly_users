@@ -1,23 +1,9 @@
 
-before '/' do
-  if @user_details != ""
-    # p "BEFORE /" + "=" * 100
-    # p @user_details= "SESION TERMINADA"
-    # #@user_details.clear
-    session[:goodbye] = "vuelve pronto"
-  else
-    p session[:goodbye].clear
-  end
-end
-
 #Crear cuenta de usuario
 #---------------------------------
 # SING IN
-before '/sign' do
-  session[:goodbye].clear
-end
+
 get '/sign' do
-  session[:goodbye].clear
   erb :sign_up
 end
 
@@ -40,33 +26,19 @@ get '/secret/:user_id'do
   erb :secret_page#=>GET
 end
 
-# before '/logout' do
-# 	@user_details = ""
-# 	@user_details.clear
-# end
-
 # Logearse como usuario existente
 #---------------------------------
 # LOG
-before '/log' do
-  session[:goodbye].clear
-end
 
 get '/log' do
-  session[:goodbye].clear
   erb :log_in
 end
 
 #peticion GET a pagina de inicio
-get '/' do
-  session[:rong_log_in].clear if session[:rong_log_in].class == String
-  erb :index
-end
-
 get '/logout' do
-	session[:message].clear
-	#session[:goodbye].clear
-	@user_details = ""
-	@user_details.clear
+	session[:message].clear if session[:message] != nil
+  #p "<"*60
+  session[:user_id] = nil
+  session[:user_id].clear if session[:user_id] != nil
 	redirect to '/'
 end

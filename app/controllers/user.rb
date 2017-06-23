@@ -14,13 +14,15 @@ before '/secret/:user_id' do
   #p "BEFORE SECRETE USER" + "<" * 100
   # Evaluar si el user esta logeadoi
 	#p "logged_in" + "-" *50
+  #p logged_in?
   case logged_in?
   # in the case that user is true
   when true
     #p "@user_details NO ES NIL" + "<"*100
     # asign var name to see in the view
+    session[:error].clear if session[:error] != nil
      user = User.find(session[:user_id])
-     #p "x"*50
+     p "x"*50
      @id = user.id
      #p "x"*50
      @name = user.name
@@ -43,7 +45,7 @@ end
 
 #------------------
 #SING UP
-post '/signUP' do
+post '/sign' do
   # Asignar a @user entradas del formulario en los PARAMS name, email y password
   user = User.new(name: params[:user_name],email: params[:user_email],password: params[:user_password])
   case user.valid?
@@ -59,10 +61,10 @@ post '/signUP' do
       #p "*"*100
       erb :log_in
     when false
-       @error = user.errors.full_messages.each do |e|
+      session[:error] = user.errors.full_messages.each do |e|
          p e
       end
-      redirect to '/signUP'
+      redirect to '/sign'
     # Para el sinatra error Stack
     # else
     #   error
@@ -81,12 +83,13 @@ end
 post '/log_page' do
   #Autenticar objeto con metodo ".authenticate" creado en MODELO con lo inputs del formulario
   p "AUTETICACION y creacion de SESSION" + "-" * 50
-  #p "-"*50
-   user = User.authenticate(params[:email], params[:password])
+  p "-"*50
+  p user = User.authenticate(params[:email], params[:password])
   #p user.id
   #metodo en helpers/user.rb
   #p "+"*50
-  p session[:user_id] = user.id if session[:user_id] != nil
+  
+  p session[:user_id] = user.id if user != nil
   logged_in?
   redirect to '/secret/:user_id'
 end#FIN de post '/log_page'

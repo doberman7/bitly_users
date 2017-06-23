@@ -2,7 +2,7 @@ require 'valid_email'
 class User < ActiveRecord::Base
 	validates :name, presence: true
 	#la validacion del formato del correo incluye su presencia y formato
-	validates :email, presence: true#, email: true
+	validates :email, presence: true, email: true
 	validates :password, presence: true
 	has_many :urls
 	# http://api.rubyonrails.org/classes/ActiveRecord/Base.html

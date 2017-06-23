@@ -10,7 +10,6 @@
     <%end%>
     <br>
     <h2>URLs</h2>
-
     <% if @urls %>
       <%@urls.each do |url|%>
 				<!--el link dirige a la url corta,
@@ -18,23 +17,16 @@
 					get /short_url/:url_id
 				-->
 				<table style="width:100%">
-					 
+
 					 <tr>
 					 	 <th><a href="/short_url/<%= url.id %>">https://bitly/<%=url.short_url%></a></th>
-						 <th><% if @id == url.user_id %>
+						 <th><% if @id == url.user_id && @id != nil%>
 	 						<p>Ha sido clickeado
 	 							<%=url.click_count%> veces
 	 						</p>
 	 					<%end%></th>
 					 </tr>
 				</table>
-
-
-
-
-
-
-
 				<br>
       <%end%>
     <%end%>
